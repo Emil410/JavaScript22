@@ -8,13 +8,19 @@ function getInput() {
 
 document.getElementById("add_button").addEventListener("click", getInput);
 
-function search() {
-    let search_name_surname = document.getElementById("input_search").value;
-    let table2 = document.querySelector('table').value;
-    if (search_name_surname = table2) {
-        console.log(table2)
-    } else {
-        console.log("Ele Ad ve ya Soyad yoxdu!");
-    }
+let search_name_surname = document.querySelector("#input_search");
+let tableRowsALL = [...document.querySelectorAll('tr')].slice(1);
+
+function inputSearch() {
+    search_name_surname.addEventListener("change", function() {
+        if (!search_name_surname) return;
+        tableRowsALL.map((tr) => {
+            tr.classList.remove("none")
+            if (!tr.innerHTML.toLowerCase().includes(search_name_surname.value.trim("").toLowerCase())) {
+                tr.classList.add("none")
+            }
+        })
+    })
 }
-document.getElementById("searchButton").addEventListener("click", search);
+
+document.getElementById("searchButton").addEventListener("click", inputSearch);
